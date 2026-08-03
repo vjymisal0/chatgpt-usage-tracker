@@ -1,0 +1,15 @@
+{
+  "name": "chatgpt-usage-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev tooling (icon generation, tests) for the ChatGPT Usage Tracker browser extension",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "make-icons": "node scripts/make-icons.mjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "sharp": "^0.35.3"
+  }
+}

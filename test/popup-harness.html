@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Popup harness (dev only, not shipped)</title>
+    <script>
+      // Stubs the chrome.* APIs popup.js relies on, backed by an in-memory
+      // mock snapshot, so the real popup markup/CSS/JS can be visually
+      // checked in an ordinary browser tab without a real extension install.
+      const now = Date.now();
+      const mockStorage = {
+        activePlan: 'plus',
+        customLimits: {},
+      };
+
+      const mockSnapshot = {
+        plan: 'plus',
+        updatedAt: now,
+        models: [
+          { id: 'gpt-5', label: 'GPT-5', used: 142, quota: 160, hours: 3, unlimited: false, resetsAt: now + 45 * 60 * 1000 },
+          { id: 'gpt-5-thinking', label: 'GPT-5 Thinking', used: 2100, quota: 3000, hours: 168, unlimited: false, resetsAt: now + 3 * 24 * 60 * 60 * 1000 },
+          { id: 'o3', label: 'o3', used: 95, quota: 100, hours: 168, unlimited: false, resetsAt: now + 60 * 60 * 1000 },
+          { id: 'o4-mini', label: 'o4-mini', used: 40, quota: 300, hours: 24, unlimited: false, resetsAt: now + 10 * 60 * 60 * 1000 },
+          { id: 'gpt-4-5', label: 'GPT-4.5', used: 0, quota: 50, hours: 168, unlimited: false, resetsAt: null },
+        ],
+      };
+
+      window.chrome = {
+        runtime: {
+          getURL: (path) => '../src/' + path.replace(/^src\//, ''),
+          sendMessage: async (msg) => {
+            console.log('sendMessage', msg);
+            if (msg.action === 'getUsage') return mockSnapshot;
+            if (msg.action === 'setPlan') mockStorage.activePlan = msg.plan;
+            if (msg.action === 'resetModel') {
+              const m = mockSnapshot.models.find((m) => m.id === msg.modelId);
+              if (m) m.used = 0;
+            }
+            if (msg.action === 'resetAll') mockSnapshot.models.forEach((m) => (m.used = 0));
+            if (msg.action === 'setCustomLimit') {
+              const m = mockSnapshot.models.find((m) => m.id === msg.modelId);
+              if (m) {
+                m.quota = msg.quota;
+                m.hours = msg.hours;
+              }
+            }
+            return { ok: true };
+          },
+        },
+        storage: {
+          local: {
+            get: async (keys) => {
+              if (typeof keys === 'string') return { [keys]: mockStorage[keys] };
+              const out = {};
+              for (const k of keys) out[k] = mockStorage[k];
+              return out;
+            },
+            set: async (items) => Object.assign(mockStorage, items),
+          },
+          onChanged: { addListener: () => {} },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <script>
+      // Loads the REAL popup.html's <style> and body markup, then the real
+      // popup.js, so this harness always reflects the actual shipped files.
+      (async () => {
+        const html = await fetch('../src/popup.html').then((r) => r.text());
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+
+        for (const style of doc.querySelectorAll('style')) {
+          document.head.appendChild(style.cloneNode(true));
+        }
+
+        document.body.innerHTML = doc.body.innerHTML.replace(/<script[^>]*src="popup\.js"[^>]*><\/script>/, '');
+
+        const script = document.createElement('script');
+        script.src = '../src/popup.js';
+        document.body.appendChild(script);
+      })();
+    </script>
+  </body>
+</html>

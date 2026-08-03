@@ -1,0 +1,35 @@
+{
+  "updatedAt": "2026-08-04",
+  "note": "These limits are not officially published/guaranteed by OpenAI and change over time. They are best-effort estimates - edit them in the popup's Custom Limits section if they don't match what you're seeing.",
+  "plans": {
+    "free": [
+      { "id": "auto", "label": "Standard (auto)", "aliases": ["auto"], "quota": 10, "hours": 5 },
+      { "id": "gpt-4o-mini", "label": "GPT-4o mini", "aliases": ["gpt-4o-mini", "4o-mini"], "quota": -1, "hours": 24 }
+    ],
+    "plus": [
+      { "id": "gpt-5", "label": "GPT-5", "aliases": ["gpt-5"], "quota": 160, "hours": 3 },
+      { "id": "gpt-5-thinking", "label": "GPT-5 Thinking", "aliases": ["gpt-5-thinking", "gpt-5-t"], "quota": 3000, "hours": 168 },
+      { "id": "o3", "label": "o3", "aliases": ["o3"], "quota": 100, "hours": 168 },
+      { "id": "o4-mini", "label": "o4-mini", "aliases": ["o4-mini"], "quota": 300, "hours": 24 },
+      { "id": "o4-mini-high", "label": "o4-mini-high", "aliases": ["o4-mini-high"], "quota": 100, "hours": 24 },
+      { "id": "gpt-4-5", "label": "GPT-4.5", "aliases": ["gpt-4-5", "gpt-4.5"], "quota": 50, "hours": 168 },
+      { "id": "gpt-4-1", "label": "GPT-4.1", "aliases": ["gpt-4-1", "gpt-4.1"], "quota": 80, "hours": 3 },
+      { "id": "gpt-4-1-mini", "label": "GPT-4.1 mini", "aliases": ["gpt-4-1-mini", "gpt-4.1-mini"], "quota": 80, "hours": 3 },
+      { "id": "gpt-4o", "label": "GPT-4o", "aliases": ["gpt-4o"], "quota": 80, "hours": 3 }
+    ],
+    "pro": [
+      { "id": "gpt-5", "label": "GPT-5", "aliases": ["gpt-5"], "quota": -1, "hours": 3 },
+      { "id": "gpt-5-thinking", "label": "GPT-5 Thinking", "aliases": ["gpt-5-thinking", "gpt-5-t"], "quota": -1, "hours": 168 },
+      { "id": "gpt-5-pro", "label": "GPT-5 Pro", "aliases": ["gpt-5-pro"], "quota": 15, "hours": 168 },
+      { "id": "o3", "label": "o3", "aliases": ["o3"], "quota": -1, "hours": 168 },
+      { "id": "o4-mini", "label": "o4-mini", "aliases": ["o4-mini"], "quota": -1, "hours": 24 }
+    ],
+    "team": [
+      { "id": "gpt-5", "label": "GPT-5", "aliases": ["gpt-5"], "quota": 160, "hours": 3 },
+      { "id": "gpt-5-thinking", "label": "GPT-5 Thinking", "aliases": ["gpt-5-thinking", "gpt-5-t"], "quota": 3000, "hours": 168 },
+      { "id": "gpt-5-pro", "label": "GPT-5 Pro", "aliases": ["gpt-5-pro"], "quota": 15, "hours": 168 },
+      { "id": "o3", "label": "o3", "aliases": ["o3"], "quota": 100, "hours": 168 },
+      { "id": "o4-mini", "label": "o4-mini", "aliases": ["o4-mini"], "quota": 300, "hours": 24 }
+    ]
+  }
+}

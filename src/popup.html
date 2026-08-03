@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ChatGPT Usage Tracker</title>
+    <style>
+      body {
+        width: 320px;
+        margin: 0;
+        padding: 14px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        color: #1a1a1a;
+        background: #ffffff;
+      }
+      h1 {
+        font-size: 15px;
+        margin: 0 0 12px;
+      }
+      .plan-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      select {
+        font-size: 13px;
+        padding: 4px 6px;
+        border-radius: 6px;
+        border: 1px solid #d0d0d0;
+      }
+      .model {
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+      }
+      .model-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+      .model-label {
+        font-weight: 600;
+      }
+      .model-percent {
+        color: #666;
+      }
+      .meter {
+        height: 6px;
+        background: #eee;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 4px;
+      }
+      .meter-fill {
+        height: 100%;
+      }
+      .meter-fill.ok { background: #22c55e; }
+      .meter-fill.warn { background: #f59e0b; }
+      .meter-fill.danger { background: #ef4444; }
+      .model-meta {
+        font-size: 11px;
+        color: #666;
+        margin-bottom: 6px;
+      }
+      .edit-row {
+        display: none;
+        gap: 6px;
+        align-items: center;
+        margin-top: 6px;
+      }
+      .edit-row.open { display: flex; }
+      .edit-row input {
+        width: 48px;
+        padding: 3px;
+        border-radius: 4px;
+        border: 1px solid #d0d0d0;
+      }
+      .row-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      button.link {
+        background: none;
+        border: none;
+        color: #2563eb;
+        cursor: pointer;
+        font-size: 11px;
+        padding: 0;
+      }
+      button.link.danger { color: #dc2626; }
+      .footer {
+        margin-top: 8px;
+        text-align: center;
+      }
+      .footer button {
+        background: #f3f4f6;
+        border: 1px solid #d0d0d0;
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .empty { color: #666; text-align: center; padding: 12px 0; }
+      .note {
+        font-size: 11px;
+        color: #999;
+        margin-top: 10px;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ChatGPT Usage Tracker</h1>
+    <div class="plan-row">
+      <label for="plan">Plan</label>
+      <select id="plan">
+        <option value="free">Free</option>
+        <option value="plus">Plus</option>
+        <option value="pro">Pro</option>
+        <option value="team">Team</option>
+      </select>
+    </div>
+    <div id="models"></div>
+    <div class="footer">
+      <button id="reset-all">Reset all usage counts</button>
+    </div>
+    <p class="note">
+      Estimated from messages you send in this browser - counted locally, never sent anywhere. Limits are
+      OpenAI's published figures where known; edit any model's numbers if they don't match what you're seeing.
+    </p>
+    <script src="popup.js"></script>
+  </body>
+</html>
